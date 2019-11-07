@@ -1,0 +1,14 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" #drawer opened>
+    <mat-list role="list">
+      <mat-list-item role="listitem" routerLink="/category">Categoria de Gastos</mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle
+    </button>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
