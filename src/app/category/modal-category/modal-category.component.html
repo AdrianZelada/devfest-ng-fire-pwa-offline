@@ -1,0 +1,21 @@
+<mat-card >
+  <mat-card-header>
+    <mat-card-title>Categorias</mat-card-title>
+  </mat-card-header>
+<form class="example-container" #categoryForm="ngForm">
+  <mat-card-content >
+      <mat-form-field>
+        <input matInput placeholder="Nombre" name="name" #name="ngModel" [(ngModel)]="data.name" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Tipo de Transaccion" name="type" #type="ngModel" [(ngModel)]="data.type" required>
+          <mat-option [value]="t.value" *ngFor="let t of transtions">{{t.label}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </mat-card-content>
+  </form>
+  <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="save()" [disabled]="!categoryForm.valid">Guardar</button>
+  </mat-card-actions>
+</mat-card>
