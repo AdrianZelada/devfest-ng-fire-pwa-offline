@@ -9,6 +9,7 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatListModule, MatSidenavModule} from "@angular/material";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {MatListModule, MatSidenavModule} from "@angular/material";
     AngularFirestoreModule,
     MatSidenavModule,
     MatListModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
