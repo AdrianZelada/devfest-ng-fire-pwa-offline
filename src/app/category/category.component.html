@@ -7,7 +7,7 @@
   </mat-card-header >
   <mat-card-content>
     <button mat-raised-button color="primary" (click)="add()">Agregar</button>
-    <div class="mat-elevation-z8" *ngIf="(categories$ | async) as categories; else loading">
+    <div class="mat-elevation-z8" *ngIf="categories; else loading">
       <table mat-table [dataSource]="categories" *ngIf="categories.length > 0; else empty">
 
         <ng-container matColumnDef="name">

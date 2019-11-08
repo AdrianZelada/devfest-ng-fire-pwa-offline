@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatTableDataSource} from "@angular/material";
+import {MatDialog} from "@angular/material";
 import {ModalCategoryComponent} from "./modal-category/modal-category.component";
-import {Observable} from "rxjs";
 import {TRANSACTIONS} from "./catalogs";
-import {CategoryCollectionService} from "./category-collection.service";
-import {map} from "rxjs/operators";
+
 
 @Component({
   selector: 'app-category',
@@ -17,20 +15,9 @@ export class CategoryComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'type', 'actions'];
 
-  categories$: Observable<any>;
+  categories: Array<any> = [];
 
-  constructor(private categoryCollection: CategoryCollectionService, public dialog: MatDialog) {
-    this.categories$ = this.categoryCollection.get().pipe(
-      map((res: Array<any>) => {
-        return res.map((data) => {
-          this.transtions.forEach((t: any) => {
-            if (data.type == t.value) {
-              data.typeLabel = t.label;
-            }
-          });
-          return data;
-        });
-    }));
+  constructor(public dialog: MatDialog) {
   }
   openDialog(data: any = {}): void {
     const dialogRef = this.dialog.open(ModalCategoryComponent, {
@@ -48,11 +35,17 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {}
 
   save(data) {
-    console.log(data);
-    if (data.id) {
-      this.categoryCollection.update(data.id, data);
+    data.typeLabel = this.getType(data.type);
+    if (data.hasOwnProperty('id')) {
+      this.categories = this.categories.map((item: any) => {
+        if (item.id == data.id) {
+          return data;
+        }
+        return item;
+      });
     } else {
-      this.categoryCollection.add(data);
+      data.id = this.categories.length;
+      this.categories.push(data);
     }
   }
 
@@ -63,6 +56,16 @@ export class CategoryComponent implements OnInit {
 
   add() {
     this.openDialog();
+  }
+
+  getType(type: number) {
+    let label = '';
+    this.transtions.forEach((t: any) => {
+      if (type == t.value) {
+        label = t.label;
+      }
+    });
+    return label;
   }
 
 }
