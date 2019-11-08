@@ -5,8 +5,9 @@ import {CollectionParent} from './collection-parent';
 @Injectable({
   providedIn: 'root'
 })
-export class ExpenseCollectionService {
+export class ExpenseCollectionService extends CollectionParent {
 
   constructor(public db: AngularFirestore) {
+    super('expense', db);
   }
 }
