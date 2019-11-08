@@ -25,7 +25,7 @@ export class CategoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed', result);
       if (result) {
         this.save(result);
       }
@@ -35,6 +35,7 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {}
 
   save(data) {
+
     data.typeLabel = this.getType(data.type);
     if (data.hasOwnProperty('id')) {
       this.categories = this.categories.map((item: any) => {
@@ -45,7 +46,7 @@ export class CategoryComponent implements OnInit {
       });
     } else {
       data.id = this.categories.length;
-      this.categories.push(data);
+      this.categories = [...this.categories, data];
     }
   }
 
