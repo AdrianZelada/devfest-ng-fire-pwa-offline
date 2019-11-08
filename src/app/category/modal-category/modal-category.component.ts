@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {TRANSACTIONS} from "../catalogs";
+import {TRANSACTIONS} from "../../services/catalogs";
 
 @Component({
   selector: 'app-modal-category',

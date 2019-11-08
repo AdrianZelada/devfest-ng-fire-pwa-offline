@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatTableDataSource} from "@angular/material";
 import {ModalCategoryComponent} from "./modal-category/modal-category.component";
 import {Observable} from "rxjs";
-import {TRANSACTIONS} from "./catalogs";
-import {CategoryCollectionService} from "./category-collection.service";
+import {TRANSACTIONS} from "../services/catalogs";
+import {CategoryCollectionService} from "../services/category-collection.service";
 import {map} from "rxjs/operators";
 
 @Component({
