@@ -4,6 +4,7 @@ import {ModalCategoryComponent} from "./modal-category/modal-category.component"
 import {Observable} from "rxjs";
 import {TRANSACTIONS} from "./catalogs";
 import {CategoryCollectionService} from "./category-collection.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-category',
@@ -17,14 +18,19 @@ export class CategoryComponent implements OnInit {
   displayedColumns: string[] = ['name', 'type', 'actions'];
 
   categories$: Observable<any>;
-  transObj: any = {};
 
   constructor(private categoryCollection: CategoryCollectionService, public dialog: MatDialog) {
-    this.categories$ = this.categoryCollection.get();
-    this.transObj = this.transtions.reduce((res, item) => {
-      res[item.value] = item.label;
-      return res;
-    }, {});
+    this.categories$ = this.categoryCollection.get().pipe(
+      map((res: Array<any>) => {
+        return res.map((data) => {
+          this.transtions.forEach((t: any) => {
+            if (data.type == t.value) {
+              data.typeLabel = t.label;
+            }
+          });
+          return data;
+        });
+    }));
   }
   openDialog(data: any = {}): void {
     const dialogRef = this.dialog.open(ModalCategoryComponent, {
